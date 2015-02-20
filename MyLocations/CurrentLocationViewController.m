@@ -8,6 +8,8 @@
 
 #import "CurrentLocationViewController.h"
 
+#import "LocationDetailsViewController.h"
+
 @interface CurrentLocationViewController ()
 
 @end
@@ -182,7 +184,7 @@
         self.latitudeLabel.text = @"";
         self.longitudeLabel.text = @"";
         self.addressLabel.text = @"";
-        self.tagButton.hidden = YES;
+        //self.tagButton.hidden = YES;
         
         NSString *statusMessage;
         if(_lastLocationError != nil){
@@ -260,6 +262,24 @@
         [self configureGetButton];
     }
 }
+
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"TagLocation"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        
+        LocationDetailsViewController * controller = (LocationDetailsViewController *)navigationController.topViewController;
+        
+        controller.coordinate = _location.coordinate;
+        controller.placemark = _placemark;
+    }
+}
+
+
+
+
 
 
 
