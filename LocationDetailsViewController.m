@@ -7,8 +7,10 @@
 //
 
 #import "LocationDetailsViewController.h"
-
 #import "CategoryPickerViewController.h"
+#import "HudView.h"
+#import "Location.h"
+
 
 @interface LocationDetailsViewController () <UITextViewDelegate>
 
@@ -19,21 +21,26 @@
 @property (nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 
-
 @end
+
+
+
 
 @implementation LocationDetailsViewController
 {
     NSString *_descriptionText;
     NSString *_categoryName;
+    NSDate *_date;
 }
 
+extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder])) {
         _descriptionText = @"";
         _categoryName = @"No Category";
+        _date = [NSDate date];
     }
     return self;
 }
@@ -54,8 +61,28 @@
         self.addressLabel.text = @"No Address Found";
     }
     
-    self.dateLabel.text = [self formatDate:[NSDate date]];
+    self.dateLabel.text = [self formatDate:_date];
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc]
+                                                 initWithTarget:self action:@selector(hideKeyboard:)];
+    
+    gestureRecognizer.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:gestureRecognizer];
 
+}
+
+
+-(void)hideKeyboard:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    
+    if (indexPath != nil && indexPath.section == 0 && indexPath.row == 0) {
+        return;
+    }
+    
+    [self.descriptionTextView resignFirstResponder];
 }
 
 
@@ -84,9 +111,29 @@
 
 -(IBAction)done:(id)sender
 {
-    NSLog(@"Description '%@'", _descriptionText);
+    HudView *hudView = [HudView hudInView:self.navigationController.view animated:YES];
+    hudView.text = @"Tagged";
     
-    [self closeScreen];
+    //creating Core Data object i.e 'Location'
+    Location *location = [NSEntityDescription
+                          insertNewObjectForEntityForName:@"Location"
+                          inManagedObjectContext:self.managedObjectContext];
+    
+    location.locationDescription = _descriptionText;
+    location.category = _categoryName;
+    location.latitude = @(self.coordinate.latitude);
+    location.longitude = @(self.coordinate.longitude);
+    location.date = _date;
+    location.placemark = self.placemark;
+    
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"*** Fatal error in %s:%d\n%@\n%@", __FILE__, __LINE__, error, [error userInfo]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:ManagedObjectContextSaveDidFailNotification object:error];
+        return;
+    }
+    
+    [self  performSelector:@selector(closeScreen) withObject:nil afterDelay:0.6];
 }
 
 
@@ -102,14 +149,7 @@
 }
 
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"PickCategory"]) {
-        CategoryPickerViewController *controller = segue.destinationViewController;
-        
-        controller.selectedCategoryName = _categoryName;
-    }
-}
+
 
 
 #pragma mark - UITableViewDelegate
@@ -136,6 +176,25 @@
 }
 
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 || indexPath.section == 1) {
+        return indexPath;
+    }
+    else {
+        return nil;
+    }
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        [self.descriptionTextView becomeFirstResponder];
+    }
+}
+
+
 
 #pragma mark - UITextViewDelegate
 
@@ -150,6 +209,19 @@
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
     _descriptionText = textView.text;
+}
+
+
+
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"PickCategory"]) {
+        
+        CategoryPickerViewController *controller = segue.destinationViewController;
+        controller.selectedCategoryName = _categoryName;
+    }
 }
 
 
