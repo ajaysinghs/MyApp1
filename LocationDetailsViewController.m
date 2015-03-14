@@ -11,6 +11,7 @@
 #import "HudView.h"
 #import "Location.h"
 
+extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
 @interface LocationDetailsViewController () <UITextViewDelegate>
 
@@ -33,7 +34,7 @@
     NSDate *_date;
 }
 
-extern NSString * const ManagedObjectContextSaveDidFailNotification;
+
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -48,6 +49,12 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (self.locationToEdit != nil) {
+        self.title = @"Edit Location";
+    }
+    
+    
     
     self.descriptionTextView.text = _descriptionText;
     self.categoryLabel.text = _categoryName;
@@ -75,13 +82,11 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
 -(void)hideKeyboard:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint point = [gestureRecognizer locationInView:self.tableView];
-    
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
     
     if (indexPath != nil && indexPath.section == 0 && indexPath.row == 0) {
         return;
     }
-    
     [self.descriptionTextView resignFirstResponder];
 }
 
@@ -112,12 +117,20 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
 -(IBAction)done:(id)sender
 {
     HudView *hudView = [HudView hudInView:self.navigationController.view animated:YES];
-    hudView.text = @"Tagged";
     
     //creating Core Data object i.e 'Location'
-    Location *location = [NSEntityDescription
+    Location *location = nil;
+    
+    if (self.locationToEdit != nil) {
+        hudView.text = @"Updated";
+        location = self.locationToEdit;
+    }
+    else {
+         hudView.text = @"Tagged";
+    location = [NSEntityDescription
                           insertNewObjectForEntityForName:@"Location"
                           inManagedObjectContext:self.managedObjectContext];
+    }
     
     location.locationDescription = _descriptionText;
     location.category = _categoryName;
@@ -134,6 +147,8 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
     }
     
     [self  performSelector:@selector(closeScreen) withObject:nil afterDelay:0.6];
+    
+    NSLog(@"Description '%@'", _descriptionText);
 }
 
 
@@ -201,7 +216,6 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     _descriptionText = [textView.text stringByReplacingCharactersInRange:range withString:text];
-
     
     return YES;
 }
@@ -236,6 +250,24 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
 }
 
 
+
+
+-(void)setLocationToEdit:(Location *)newLocationToEdit
+{
+    if (_locationToEdit != newLocationToEdit) {
+        _locationToEdit = newLocationToEdit;
+        
+        _descriptionText = _locationToEdit.locationDescription;
+        _categoryName = _locationToEdit.category;
+        _date = _locationToEdit.date;
+        
+        self.coordinate = CLLocationCoordinate2DMake(
+                                                     [_locationToEdit.latitude doubleValue],
+                                                     [_locationToEdit.longitude doubleValue]);
+        
+        self.placemark = _locationToEdit.placemark;
+    }
+}
 
 
 
