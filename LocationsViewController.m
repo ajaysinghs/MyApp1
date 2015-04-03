@@ -11,6 +11,7 @@
 #import "Location.h"
 #import "LocationCell.h"
 #import "LocationDetailsViewController.h"
+#import "UIImage+Resize.h"
 
 extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
@@ -133,6 +134,16 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
                                           [location.latitude doubleValue],
                                           [location.longitude doubleValue]];
     }
+    
+    
+    UIImage *image = nil;
+    if ([location hasPhoto]) {
+        image = [location photoImage];
+        if (image != nil) {
+            image = [image resizedImageWithBounds:CGSizeMake(52, 52)];
+        }
+    }
+    locationCell.photoImageView.image = image;  
 }
 
 - (NSInteger)numberOfSectionsInTableView: (UITableView *)tableView
@@ -171,6 +182,7 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
     if (editingStyle == UITableViewCellEditingStyleDelete){
         
         Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [location removePhotoFile];
         [self.managedObjectContext deleteObject:location];
         
         NSError *error;
