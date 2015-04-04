@@ -10,6 +10,7 @@
 #import "CategoryPickerViewController.h"
 #import "HudView.h"
 #import "Location.h"
+#import "NSMutableString+AddText.h"
 
 extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
@@ -140,8 +141,21 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
 -(NSString *)stringFromPlacemark:(CLPlacemark *)placemark
 {
-    return [NSString stringWithFormat:@"%@ %@, %@, %@ %@, %@", placemark.subThoroughfare,placemark.thoroughfare, placemark.locality,placemark.administrativeArea, placemark.postalCode, placemark.country];
+    //used category NSMutableString+AddText to handle the "null" issue in address
+    
+    NSMutableString *line = [NSMutableString stringWithCapacity:100];
+    [line addText:placemark.subThoroughfare withSeparator:@""];
+    [line addText:placemark.thoroughfare withSeparator:@" "];
+    [line addText:placemark.locality withSeparator:@", "];
+    [line addText:placemark.administrativeArea withSeparator:@", "];
+    [line addText:placemark.postalCode withSeparator:@" "];
+    [line addText:placemark.country withSeparator:@", "];
+    
+    return line;
+    
+//    return [NSString stringWithFormat:@"%@ %@, %@, %@ %@, %@", placemark.subThoroughfare,placemark.thoroughfare, placemark.locality,placemark.administrativeArea, placemark.postalCode, placemark.country];
 }
+
 
 -(NSString *)formatDate:(NSDate *)theDate
 {

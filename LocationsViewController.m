@@ -12,6 +12,7 @@
 #import "LocationCell.h"
 #import "LocationDetailsViewController.h"
 #import "UIImage+Resize.h"
+#import "NSMutableString+AddText.h"
 
 extern NSString * const ManagedObjectContextSaveDidFailNotification;
 
@@ -124,10 +125,13 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
         
     
     if (location.placemark != nil){
-        locationCell.addressLabel.text = [NSString stringWithFormat:@"%@ %@, %@",
-                                          location.placemark.subThoroughfare,
-                                          location.placemark.thoroughfare,
-                                          location.placemark.location];
+        //used category NSMutableString+AddText to handle the "null" issue in address
+        NSMutableString *string = [NSMutableString stringWithCapacity:100];
+        
+        [string addText:location.placemark.subThoroughfare withSeparator:@""];
+        [string addText:location.placemark.thoroughfare withSeparator:@" "];
+        [string addText:location.placemark.locality withSeparator:@", "];
+        locationCell.addressLabel.text = string;
     }
     else {
         locationCell.addressLabel.text = [NSString stringWithFormat:@"Lat: %.8f, Long: %.8f",

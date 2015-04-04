@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		212094071ACF40940031576C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 212094061ACF40940031576C /* UIImage+Resize.m */; };
+		2120940A1ACF659A0031576C /* NSMutableString+AddText.m in Sources */ = {isa = PBXBuildFile; fileRef = 212094091ACF659A0031576C /* NSMutableString+AddText.m */; };
 		213D4B4A1A8FF7F400E5141E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 213D4B491A8FF7F400E5141E /* main.m */; };
 		213D4B4D1A8FF7F400E5141E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 213D4B4C1A8FF7F400E5141E /* AppDelegate.m */; };
 		213D4B501A8FF7F400E5141E /* CurrentLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213D4B4F1A8FF7F400E5141E /* CurrentLocationViewController.m */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		212094051ACF40940031576C /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		212094061ACF40940031576C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		212094081ACF659A0031576C /* NSMutableString+AddText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+AddText.h"; sourceTree = "<group>"; };
+		212094091ACF659A0031576C /* NSMutableString+AddText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+AddText.m"; sourceTree = "<group>"; };
 		213D4B441A8FF7F400E5141E /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		213D4B481A8FF7F400E5141E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		213D4B491A8FF7F400E5141E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 				217425E61AB4C05800D0E4E6 /* MapViewController.m */,
 				212094051ACF40940031576C /* UIImage+Resize.h */,
 				212094061ACF40940031576C /* UIImage+Resize.m */,
+				212094081ACF659A0031576C /* NSMutableString+AddText.h */,
+				212094091ACF659A0031576C /* NSMutableString+AddText.m */,
 				213D4B571A8FF7F400E5141E /* Images.xcassets */,
 				213D4B591A8FF7F400E5141E /* LaunchScreen.xib */,
 				213D4B471A8FF7F400E5141E /* Supporting Files */,
@@ -285,6 +290,7 @@
 				21B931011A97B91A00A6EE98 /* CategoryPickerViewController.m in Sources */,
 				21E2E8061A9A7F6B006DC04D /* LocationCell.m in Sources */,
 				21B930F81A96879C00A6EE98 /* LocationDetailsViewController.m in Sources */,
+				2120940A1ACF659A0031576C /* NSMutableString+AddText.m in Sources */,
 				217425E71AB4C05800D0E4E6 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
