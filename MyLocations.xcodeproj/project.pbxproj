@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		212094071ACF40940031576C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 212094061ACF40940031576C /* UIImage+Resize.m */; };
 		2120940A1ACF659A0031576C /* NSMutableString+AddText.m in Sources */ = {isa = PBXBuildFile; fileRef = 212094091ACF659A0031576C /* NSMutableString+AddText.m */; };
+		2120940E1ACF72580031576C /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2120940D1ACF72580031576C /* MyTabBarController.m */; };
+		212094141ACF73F70031576C /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212094131ACF73F70031576C /* MyNavigationController.m */; };
+		212094161ACF97DB0031576C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212094151ACF97DB0031576C /* AudioToolbox.framework */; };
 		213D4B4A1A8FF7F400E5141E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 213D4B491A8FF7F400E5141E /* main.m */; };
 		213D4B4D1A8FF7F400E5141E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 213D4B4C1A8FF7F400E5141E /* AppDelegate.m */; };
 		213D4B501A8FF7F400E5141E /* CurrentLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213D4B4F1A8FF7F400E5141E /* CurrentLocationViewController.m */; };
@@ -44,6 +47,12 @@
 		212094061ACF40940031576C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		212094081ACF659A0031576C /* NSMutableString+AddText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+AddText.h"; sourceTree = "<group>"; };
 		212094091ACF659A0031576C /* NSMutableString+AddText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+AddText.m"; sourceTree = "<group>"; };
+		2120940C1ACF72580031576C /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTabBarController.h; path = ../MyTabBarController.h; sourceTree = "<group>"; };
+		2120940D1ACF72580031576C /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTabBarController.m; path = ../MyTabBarController.m; sourceTree = "<group>"; };
+		212094121ACF73F60031576C /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
+		212094131ACF73F70031576C /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
+		212094151ACF97DB0031576C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2120941B1ACF995B0031576C /* Sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sound.caf; sourceTree = "<group>"; };
 		213D4B441A8FF7F400E5141E /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		213D4B481A8FF7F400E5141E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		213D4B491A8FF7F400E5141E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				212094161ACF97DB0031576C /* AudioToolbox.framework in Frameworks */,
 				217425E41AB4BE9300D0E4E6 /* MapKit.framework in Frameworks */,
 				21FBD6451A99256D0049B91D /* CoreData.framework in Frameworks */,
 				213D4B711A90075C00E5141E /* CoreLocation.framework in Frameworks */,
@@ -98,9 +108,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2120941A1ACF995B0031576C /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				2120941B1ACF995B0031576C /* Sound.caf */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
 		213D4B3B1A8FF7F400E5141E = {
 			isa = PBXGroup;
 			children = (
+				2120941A1ACF995B0031576C /* Sound */,
+				212094151ACF97DB0031576C /* AudioToolbox.framework */,
 				217425E31AB4BE9300D0E4E6 /* MapKit.framework */,
 				21FBD6441A99256D0049B91D /* CoreData.framework */,
 				213D4B701A90075C00E5141E /* CoreLocation.framework */,
@@ -146,6 +166,10 @@
 				212094061ACF40940031576C /* UIImage+Resize.m */,
 				212094081ACF659A0031576C /* NSMutableString+AddText.h */,
 				212094091ACF659A0031576C /* NSMutableString+AddText.m */,
+				2120940C1ACF72580031576C /* MyTabBarController.h */,
+				2120940D1ACF72580031576C /* MyTabBarController.m */,
+				212094121ACF73F60031576C /* MyNavigationController.h */,
+				212094131ACF73F70031576C /* MyNavigationController.m */,
 				213D4B571A8FF7F400E5141E /* Images.xcassets */,
 				213D4B591A8FF7F400E5141E /* LaunchScreen.xib */,
 				213D4B471A8FF7F400E5141E /* Supporting Files */,
@@ -284,9 +308,11 @@
 				213D4B501A8FF7F400E5141E /* CurrentLocationViewController.m in Sources */,
 				21FBD64B1A992DFF0049B91D /* Location.m in Sources */,
 				213D4B4A1A8FF7F400E5141E /* main.m in Sources */,
+				2120940E1ACF72580031576C /* MyTabBarController.m in Sources */,
 				212094071ACF40940031576C /* UIImage+Resize.m in Sources */,
 				21B931071A9803C700A6EE98 /* HudView.m in Sources */,
 				21E2E8031A9A6A07006DC04D /* LocationsViewController.m in Sources */,
+				212094141ACF73F70031576C /* MyNavigationController.m in Sources */,
 				21B931011A97B91A00A6EE98 /* CategoryPickerViewController.m in Sources */,
 				21E2E8061A9A7F6B006DC04D /* LocationCell.m in Sources */,
 				21B930F81A96879C00A6EE98 /* LocationDetailsViewController.m in Sources */,

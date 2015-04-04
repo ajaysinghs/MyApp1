@@ -112,8 +112,50 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
     
     gestureRecognizer.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:gestureRecognizer];
+    
+    //to make tableview backgroung color black
+    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:1.0f alpha:0.2f];
+    
+    self.descriptionTextView.textColor = [UIColor whiteColor];
+    self.descriptionTextView.backgroundColor = [UIColor blackColor];
+    
+    self.photoLabel.textColor = [UIColor whiteColor];
+    self.photoLabel.highlightedTextColor = self.photoLabel.textColor;
+    
+    self.addressLabel.textColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
+    self.addressLabel.highlightedTextColor = self.addressLabel.textColor;
 
 }
+
+// to make tableview cells blackcolor (using this method because here cells are static)
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor blackColor];
+    
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = cell.textLabel.textColor;
+    
+    cell.detailTextLabel.textColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
+    cell.detailTextLabel.highlightedTextColor = cell.detailTextLabel.textColor;
+    
+    UIView *selectionView = [[UIView alloc] initWithFrame:CGRectZero];
+    selectionView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.2f];
+    
+    cell.selectedBackgroundView = selectionView;
+    
+    
+    //to show Address label which has tag 100
+    if (indexPath.row == 2) {
+        UILabel *addressLabel = (UILabel *)[cell viewWithTag:100];
+        addressLabel.textColor = [UIColor whiteColor];
+        addressLabel.highlightedTextColor = addressLabel.textColor;
+    }
+}
+
+
+
 
 - (void)showImage:(UIImage *)image
 {
@@ -245,6 +287,9 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
     _imagePicker.delegate = self;
     _imagePicker.allowsEditing = YES;
     
+    //to make Cancel button appears in yellow instead of blue
+    _imagePicker.view.tintColor = self.view.tintColor;
+    
     [self presentViewController:_imagePicker animated:YES completion:nil];
 }
 
@@ -255,6 +300,9 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
     _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     _imagePicker.delegate = self;
     _imagePicker.allowsEditing = YES;
+    
+    //to make Cancel button appears in yellow instead of blue
+    _imagePicker.view.tintColor = self.view.tintColor;
     
     [self presentViewController:_imagePicker animated:YES completion:nil];
 }

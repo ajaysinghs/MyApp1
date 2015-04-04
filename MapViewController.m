@@ -166,6 +166,7 @@ extern NSString * const ManagedObjectContextSaveDidFailNotification;
             annotationView.canShowCallout = YES;
             annotationView.animatesDrop = NO;
             annotationView.pinColor = MKPinAnnotationColorPurple;
+            annotationView.tintColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
             
             
             UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
